@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:github_mobilapp/pages/repositories/repositories.page.dart';
 import 'package:http/http.dart';
 import '../../widgets/drawer.widget.dart';
 import 'package:http/http.dart' as http;
@@ -112,11 +113,20 @@ class _UsersPageState extends State<UsersPage> {
               ],
             ),
             Expanded(
-              child: ListView.builder(
+              child: ListView.separated(
+                separatorBuilder: (context, index) => Divider(height: 3, color: Colors.green,),
                 controller: scrollController,
                   itemCount: items.length,
                   itemBuilder: (context,index){
                     return ListTile(
+                      onTap: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(
+                                builder: (context)=>RepositoriesPage(
+                                  login: items[index]['login'],
+                                  avatarUrl: items[index]['avatar_url'],
+                                )));
+                      },
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
